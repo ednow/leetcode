@@ -33,42 +33,21 @@ class TreeNode {
 
 
 public class Solution {
-    // 是不是第一次走
-    boolean first = true;
-    // targetSum是不是大于0
-    boolean isNegative = true;
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if (first) {
-            first = false;
-            if (root==null) return false;
-            // 根节点满足的话,必须没有左右孩子
-            if (root.val == targetSum) {
-                return root.left == null && root.right == null;
-            }
-            if (targetSum > 0) {
-                isNegative = false;
-            }
-        }
 
-
-        // 加起来肯定大于目标数
-        if (targetSum < 0 && !isNegative) {
-            return false;
-        }
-
-        if (targetSum > 0 && isNegative) {
-            return false;
-        }
-
-        // 走到根节点且求和完毕
-        if (root == null && targetSum==0) {
-            return true;
-        }
         // 走到根节点且没求完
         if (root == null) {
             return false;
         }
-        return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+
+        targetSum = targetSum - root.val;
+
+        // 走到根节点且求和完毕
+        if (root.left == null && root.right == null && targetSum==0) {
+            return true;
+        }
+
+        return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
     }
 
 }

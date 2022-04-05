@@ -19,22 +19,24 @@ package leetcode112;
  */
 
 class TreeNode {
-  int val;
-  TreeNode left;
-  TreeNode right;
-  TreeNode() {}
-  TreeNode(int val) { this.val = val; }
-  TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
-  }
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
 }
 
 
 public class Solution {
     // 是不是第一次走
     boolean first = true;
+    // targetSum是不是大于0
+    boolean isNegative = true;
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if (first) {
             first = false;
@@ -43,13 +45,21 @@ public class Solution {
             if (root.val == targetSum) {
                 return root.left == null && root.right == null;
             }
+            if (targetSum > 0) {
+                isNegative = false;
+            }
         }
 
 
         // 加起来肯定大于目标数
-        if (targetSum < 0) {
+        if (targetSum < 0 && !isNegative) {
             return false;
         }
+
+        if (targetSum > 0 && isNegative) {
+            return false;
+        }
+
         // 走到根节点且求和完毕
         if (root == null && targetSum==0) {
             return true;
@@ -61,8 +71,4 @@ public class Solution {
         return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
     }
 
-    public static void main(String[] args) {
-        // 根节点通过的话也不行。
-        System.out.println(new Solution().hasPathSum(new TreeNode(1, new TreeNode(2), null), 1));
-    }
 }

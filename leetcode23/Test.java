@@ -22,11 +22,16 @@ public class Test {
 
     void case1() {
 //        [[1,4,5],[1,3,4],[2,6]]
-        s.mergeKLists(new ListNode[]{
+        var head = s.mergeKLists(new ListNode[]{
                 initList(new int[]{1, 4, 5}),
                 initList(new int[]{1, 3, 4}),
                 initList(new int[]{2,6})
         });
+        while (head != null) {
+            System.out.print(head.val + ",");
+            head = head.next;
+        }
+
     }
 
     public static void main(String[] args) {

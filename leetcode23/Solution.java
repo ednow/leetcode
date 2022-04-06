@@ -1,6 +1,8 @@
 package leetcode23;
 
 
+import java.util.Map;
+
 /**
 * Definition for singly-linked list.
 * public class ListNode {
@@ -27,36 +29,44 @@ class ListNode {
 public class Solution {
 
     ListNode merge2Lists(ListNode a, ListNode b) {
+        // 如果有空的列表，返回那个非空的列表
+        // 两个链表都是空的话，返回null
         if (a == null || b == null) {
             return a == null ? b : a;
         }
-        ListNode head = a.val > b.val ? b : a;
-        // a永远指向最小的节点
-        while (a != null) {
-            if (a.val > b.val) {
-                ListNode temp;
-                temp = a;
-                a = b;
-                b = temp;
-            }
-            // 如果a后面还有别的节点而且
-            // 如果a后面的值一直相等的话，或者比b小那么指针往后移
-            while (a.next!=null && (a.val == a.next.val || a.val <= b.val)) a = a.next;
 
-            // 指针重置
-            ListNode nextA = null;
-            if (a.next != null) {
-                nextA = a.next.next;
-            }
-            a.next = b;
-            a = nextA;
+        // 初始化工作指针
+        ListNode workPtr = null;
+        ListNode head = null;
+        if (a.val < b.val) {
+            workPtr = a;
+            head = a;
+            a = a.next;
 
-            // 如果b后面还有别的节点而且
-            // 如果b后面的值一直相等的话
-            while (b.next!=null && b.val==b.next.val) b = b.next;
-            
+        } else {
+            workPtr = b;
+            head = b;
+            b = b.next;
         }
 
+        // 工作指针不断移动
+        while (a!=null && b!=null) {
+            if (a.val < b.val) {
+                workPtr.next = a;
+                a = a.next;
+            } else {
+                workPtr.next = b;
+                b = b.next;
+            }
+            workPtr = workPtr.next;
+        }
+
+        // 某一个列表还有未拼接的元素
+        if (a == null) {
+            workPtr.next = b;
+        } else {
+            workPtr.next = a;
+        }
         return head;
     }
 

@@ -1,21 +1,33 @@
 package leetcode84;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
+/**
+ * https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/28900/Short-and-Clean-O(n)-stack-based-JAVA-solution
+ * https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/zhu-zhuang-tu-zhong-zui-da-de-ju-xing-by-leetcode-/
+ * 在一维数组中对每一个数找到第一个比自己小的元素。这类“在一维数组中找第一个满足某种条件的数”的场景就是典型的单调栈应用场景。
+ */
 public class Solution {
     public int largestRectangleArea(int[] heights) {
-        if (heights.length == 0) {
-            return 0;
+        int result = 0;
+        for (int i = 0; i < heights.length; i++) {
+            int len = 0;
+            // 向左边扩散
+            for (int j = i-1; j >= 0; j--) {
+                if (heights[j] >= heights[i]) {
+                    len++;
+                } else { // 结束扩散
+                    break;
+                }
+            }
+            // 向右边扩散
+            for (int j = i+1; j < heights.length; j++) {
+                if (heights[j] >= heights[i]) {
+                    len++;
+                } else { // 结束扩散
+                    break;
+                }
+            }
+            result = Math.max(result, heights[i] * (len + 1));
         }
-        int min = Arrays.stream(heights).min().orElse(0);
-        int index = Arrays.stream(heights).boxed().collect(Collectors.toList()).indexOf(min);
-        return Math.max(
-                min * heights.length,
-                Math.max(
-                        largestRectangleArea(Arrays.copyOfRange(heights, 0, index)),
-                        largestRectangleArea(Arrays.copyOfRange(heights, index+1, heights.length))
-                )
-        );
+        return result;
     }
 }

@@ -21,7 +21,8 @@ public class Solution {
         int ans = 0;
         int []right = new int[heights.length];
         // 最后一个元素的边界是n
-        right[heights.length - 1] = heights.length;
+        // 如果中间还有元素的right没有被检查到，那么就是也是数组边界n
+        Arrays.fill(right, heights.length);
         int []left = new int[heights.length];
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < heights.length; i++) {

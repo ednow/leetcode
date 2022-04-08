@@ -20,13 +20,15 @@ public class Solution {
     int maximalRectangle(int[] heights) {
         int ans = 0;
         int []right = new int[heights.length];
+        // 最后一个元素的边界是n
+        right[heights.length - 1] = heights.length;
         int []left = new int[heights.length];
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < heights.length; i++) {
-            while (!stack.isEmpty() && stack.peek() >= heights[i]) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
                 right[stack.pop()] = i;
             }
-            left[i] = stack.isEmpty() ? -1: stack.peek();
+            left[i] = (stack.isEmpty() ? -1: stack.peek());
             stack.push(i);
         }
 
@@ -46,7 +48,7 @@ public class Solution {
         for (int i = 0; i < matrix.length; i++) {  // row
             for (int j = 0; j < matrix[i].length; j++) { // col
                 for (int k = i; k >= 0; k--) {
-                    if (matrix[i][j] == '0') {
+                    if (matrix[k][j] == '0') {
                         break;
                     }
                     heights[i][j]++;

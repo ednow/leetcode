@@ -21,13 +21,17 @@ public class Solution {
             p[i] = i;
         }
         for (int[] edge : edges) {
+            int a = find(p, edge[0]);
+            int b = find(p, edge[1]);
             union(p, edge[0], edge[1]);
-
-            int parent = find(p, edge[0]);
-            // 如果他们之间有同一个父亲，且这个父亲不再他们之中，而且他们之间有连接
-            if (parent != edge[0] && parent != edge[1]) {
+            int c = find(p, edge[0]);
+            int d = find(p, edge[1]);
+            // 如果之前已经连上过
+            if ((a == b && a != edge[0]) && (c == d && c != edge[1])) {
                 result = edge;
             }
+
+
         }
 
         return result;

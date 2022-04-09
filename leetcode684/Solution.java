@@ -27,7 +27,7 @@ public class Solution {
             int c = find(p, edge[0]);
             int d = find(p, edge[1]);
             // 如果之前已经连上过
-            if (((a == b && a != edge[0]) && (c == d && c != edge[1]))|| (a==b && c == d)) {
+            if (a==b && c == d) {
                 result = edge;
             }
 

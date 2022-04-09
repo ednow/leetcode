@@ -49,7 +49,7 @@ public class Solution {
         boolean[] isReach = new boolean[wordList.size()];
         Queue<Item> q = new ArrayDeque<>();
         int result = Integer.MAX_VALUE;
-        for (int i = 0; i < wordList.size()-1; i++) {
+        for (int i = 0; i < wordList.size(); i++) {
             int diff = 0;
             // 如果只有一个个字母不一样
             for (int k = 0; k < wordList.get(i).length(); k++) {

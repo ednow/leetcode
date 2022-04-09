@@ -9,7 +9,7 @@ public class Test {
 //                new Solution().ladderLength("hit", "cog", Arrays.stream(new String[]{"hot","dot","dog","lot","log","cog"}).toList())
 //        );
         System.out.println(
-                new Solution().ladderLength("a", "b", Arrays.stream(new String[]{"a","b","c"}).toList())
+                new Solution().ladderLength("a", "c", Arrays.stream(new String[]{"a","b","c"}).toList())
         );
     }
 }

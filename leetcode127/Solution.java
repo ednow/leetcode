@@ -66,16 +66,16 @@ public class Solution {
         while (!q.isEmpty()) {
             Item item = q.poll();
             if (item.id == end && item.level < result) {
-                isReach[item.id] = true;
                 result = item.level;
             }
             for (int i = 0; i < wordList.size(); i++) {
                 if (!isReach[i] && graph[i][item.id] == 1) {
+                    isReach[item.id] = true;
                     q.add(new Item(item.level+1, i));
                 }
             }
         }
 
-        return result == Integer.MAX_VALUE ? 0 : result;
+        return result == Integer.MAX_VALUE ? 0 : result+1;
     }
 }

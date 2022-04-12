@@ -41,17 +41,16 @@ public class Solution {
      * 找到第一块土地
      * @param graph 图
      */
-    void find(int[][] graph, int x, int y) {
+    int[] find(int[][] graph) {
         // 第一个找到的土地所接壤的土地都标记为
         for (int i = 0; i < graph.length; i++) {
             for (int j = 0; j < graph[0].length; j++) {
                 if (graph[i][j] == 1) {
-                    x = i;
-                    y = j;
-                    return;
+                    return new int[]{i, j};
                 }
             }
         }
+        return null;
     }
 
     public int shortestBridge(int[][] grid) {
@@ -61,11 +60,11 @@ public class Solution {
         islands[1] = new LinkedList<int[]>();
         for (LinkedList<int[]> island : islands) {
             // 将要被标记为2的第一块土地
-            int x = 0, y = 0;
-            find(grid, x, y);
+
+            int[] block = find(grid);
 //            // 先把地图划分为两个岛屿
 //            List<int []> island1 = new LinkedList<>();
-            mark(x, y, grid, new boolean[grid.length][grid[0].length], island);
+            mark(block[0], block[1], grid, new boolean[grid.length][grid[0].length], island);
         }
 
         int result = Integer.MAX_VALUE;
@@ -75,6 +74,6 @@ public class Solution {
             }
         }
 
-        return result;
+        return Math.max(1, result-1);
     }
 }

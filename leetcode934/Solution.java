@@ -31,8 +31,8 @@ public class Solution {
         for (int[] once : pos) {
             int x = j + once[0];
             int y = i + once[1];
-            if (x > 0 && y > 0 && x < graph[0].length && y < graph.length && graph[x][y] == 1) {
-                mark(x, y, graph, isVisited, island);
+            if (x >= 0 && y >= 0 && x < graph[0].length && y < graph.length && graph[y][x] == 1) {
+                mark(y, x, graph, isVisited, island);
             }
         }
     }
@@ -74,6 +74,6 @@ public class Solution {
             }
         }
 
-        return Math.max(1, result-1);
+        return result-1;
     }
 }
